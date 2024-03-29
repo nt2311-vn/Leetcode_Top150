@@ -23,3 +23,13 @@ func TestMajorTwo(t *testing.T) {
 		t.Errorf("Failed 2nd test: expeted %d but got %d", expected, actual)
 	}
 }
+
+func TestMajorThree(t *testing.T) {
+	nums := []int{10, 9, 9, 9, 10}
+	expected := 9
+
+	actual := MajorityElement(nums)
+	if actual != expected {
+		t.Errorf("Failed 3rd test: expeted %d but got %d", expected, actual)
+	}
+}
