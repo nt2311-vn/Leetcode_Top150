@@ -1,13 +1,30 @@
 class MinStack {
-  List<int> _stack;
-  int _minVal;
+  List<int> stack = [];
+  List<int> minStack = [];
 
-  MinStack() {
-    _stack = [];
-    _minVal = 0;
+  MinStack() {}
+
+  void push(int x) {
+    stack.add(x);
+    if (minStack.isEmpty || x <= minStack.last) {
+      minStack.add(x);
+    }
   }
 
-  void push(int val) {
-    _stack.add(val);
+  void pop() {
+    if (stack.isNotEmpty) {
+      if (stack.last == minStack.last) {
+        minStack.removeLast();
+      }
+      stack.removeLast();
+    }
+  }
+
+  int top() {
+    return stack.last;
+  }
+
+  int getMin() {
+    return minStack.last;
   }
 }
