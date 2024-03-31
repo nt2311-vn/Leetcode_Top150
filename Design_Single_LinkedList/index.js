@@ -5,7 +5,7 @@ class ListNode {
 	 */
 	constructor(val, nextNode = null) {
 		this.val = val;
-		this.nextNode = nextNode;
+		this.next = nextNode;
 	}
 }
 class LinkedList {
@@ -24,5 +24,90 @@ class LinkedList {
 	 * @param {number} index
 	 * @returns {number}
 	 */
-	get(index) {}
+	get(index) {
+		if (index > this.length) {
+			return -1;
+		}
+
+		let current = this.head.next;
+		let i = 0;
+
+		while (current) {
+			if (i == index) {
+				return current.val;
+			}
+
+			i++;
+			current = current.next;
+		}
+	}
+
+	/**
+	 * @param {number} val
+	 * @returns {void}
+	 */
+	insertHead(val) {
+		let newHead = new ListNode(val);
+		let current = this.head.nextNode;
+		newHead.nextNode = current;
+
+		this.head = newHead;
+		this.length++;
+
+		if (!newHead.nextNode) {
+			this.tail = newHead;
+		}
+	}
+
+	/**
+	 * @param {number} val
+	 * @return {void}
+	 */
+	insertTail(val) {
+		let newTail = new ListNode(val);
+		this.tail.nextNode = newTail;
+		this.tail = newTail;
+		this.length++;
+	}
+
+	/**
+	 * @param {numer} index
+	 * @param {boolean}
+	 */
+	remove(index) {
+		let i = 0;
+		let current = this.head;
+
+		while (i < index && current) {
+			i++;
+			current = current.nextNode;
+		}
+
+		if (current && current.nextNode) {
+			if (current.nextNode === this.tail) {
+				this.tail = current;
+			}
+			current.nextNode = current.nextNode.nextNode;
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @returns {number[]}
+	 */
+	getValues() {
+		let current = this.head.nextNode;
+		const results = [];
+
+		while (current) {
+			results.push(current.val);
+			current = current.next;
+		}
+
+		return results;
+	}
 }
+
+new LinkedList();
