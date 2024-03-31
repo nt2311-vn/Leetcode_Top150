@@ -17,5 +17,5 @@ func reverseList(head *ListNode) *ListNode {
 		current = remainNode
 	}
 
-	return dummyNode
+	return reverseNode
 }
