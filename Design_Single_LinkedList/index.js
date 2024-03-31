@@ -25,7 +25,7 @@ class LinkedList {
 	 * @returns {number}
 	 */
 	get(index) {
-		if (index > this.length) {
+		if (index >= this.length) {
 			return -1;
 		}
 
@@ -48,13 +48,13 @@ class LinkedList {
 	 */
 	insertHead(val) {
 		let newHead = new ListNode(val);
-		let current = this.head.nextNode;
-		newHead.nextNode = current;
+		let current = this.head.next;
+		newHead.next = current;
 
-		this.head = newHead;
+		this.head.next = newHead;
 		this.length++;
 
-		if (!newHead.nextNode) {
+		if (!newHead.next) {
 			this.tail = newHead;
 		}
 	}
@@ -65,7 +65,7 @@ class LinkedList {
 	 */
 	insertTail(val) {
 		let newTail = new ListNode(val);
-		this.tail.nextNode = newTail;
+		this.tail.next = newTail;
 		this.tail = newTail;
 		this.length++;
 	}
@@ -75,30 +75,34 @@ class LinkedList {
 	 * @param {boolean}
 	 */
 	remove(index) {
+		if (index >= this.length || this.length === 0) {
+			return false;
+		}
 		let i = 0;
 		let current = this.head;
 
-		while (i < index && current) {
+		while (i < index && current.next) {
 			i++;
-			current = current.nextNode;
+			current = current.next;
 		}
 
-		if (current && current.nextNode) {
-			if (current.nextNode === this.tail) {
-				this.tail = current;
-			}
-			current.nextNode = current.nextNode.nextNode;
-			return true;
+		if (current.next === this.tal) {
+			this.tail = current;
 		}
+		current.next = current.next.next;
 
-		return false;
+		if (current.next === null) {
+			this.tail = current;
+		}
+		this.length--;
+		return true;
 	}
 
 	/**
 	 * @returns {number[]}
 	 */
 	getValues() {
-		let current = this.head.nextNode;
+		let current = this.head.next;
 		const results = [];
 
 		while (current) {
