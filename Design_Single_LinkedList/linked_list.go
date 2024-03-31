@@ -58,6 +58,26 @@ func (this *LinkedList) insertTail(val int) {
 	this.length++
 }
 
+func (this *LinkedList) add(index, val int) {
+	if index < 0 || index > this.length {
+		return
+	}
+	var prev *ListNode = this.head
+	newNode := &ListNode{val: val}
+
+	for i := 0; i < index; i++ {
+		prev = prev.next
+	}
+
+	remainNode := prev.next
+	prev.next = newNode
+	newNode.next = remainNode
+
+	if newNode.next == nil {
+		this.tail = newNode
+	}
+}
+
 func (this *LinkedList) remove(index int) bool {
 	if index >= this.length || this.length == 0 {
 		return false
