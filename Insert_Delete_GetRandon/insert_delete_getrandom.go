@@ -33,8 +33,9 @@ func (this *RandomizedSet) Remove(val int) bool {
 	index, exist := this.set[val]
 
 	if exist {
-		this.arr[index] = this.arr[len(this.arr)-1]
-		this.arr[len(this.arr)-1] = val
+		lastElement := this.arr[len(this.arr)-1]
+		this.arr[index] = lastElement
+		this.set[lastElement] = index
 		this.arr = this.arr[:len(this.arr)-1]
 		delete(this.set, val)
 		this.size--
