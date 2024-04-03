@@ -62,12 +62,42 @@ func Constructor() MyStack {
 }
 
 func (this *MyStack) Push(x int) {
+	this.queue1.Add(x)
 }
 
 func (this *MyStack) Pop() int {
+	if this.Empty() {
+		return -1
+	}
+
+	for this.queue1.size > 1 {
+		remove := this.queue1.Pop().val
+		this.queue2.Add(remove)
+	}
+
+	lastItem := this.queue1.Pop().val
+
+	this.queue1, this.queue2 = this.queue2, this.queue1
+
+	return lastItem
 }
 
 func (this *MyStack) Top() int {
+	if this.Empty() {
+		return -1
+	}
+
+	for this.queue1.size > 1 {
+		remove := this.queue1.Pop().val
+		this.queue2.Add(remove)
+	}
+
+	lastItem := this.queue1.Peek()
+	this.queue2.Add(this.queue1.Pop().val)
+
+	this.queue1, this.queue2 = this.queue2, this.queue1
+
+	return lastItem
 }
 
 func (this *MyStack) Empty() bool {
