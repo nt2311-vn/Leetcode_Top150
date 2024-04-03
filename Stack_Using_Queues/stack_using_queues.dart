@@ -1,6 +1,7 @@
 class Node {
   int val;
   Node? next;
+
   Node(this.val, this.next);
 }
 
@@ -8,8 +9,6 @@ class Queue {
   Node? head;
   Node? tail;
   int size = 0;
-
-  Queue(this.head, this.tail, this.size);
 
   bool isEmpty() {
     return this.size == 0;
@@ -19,44 +18,38 @@ class Queue {
     if (isEmpty()) {
       return -1;
     }
-
     return head!.val;
   }
 
   Node? remove() {
-    if (head == null) {
+    if (isEmpty()) {
       return null;
     }
-
-    Node topItem = head!;
-    head = head!.next;
-
+    Node? topItem = head;
+    head = head?.next;
     if (head == null) {
-      return tail = null;
+      tail = null;
     }
     size--;
     return topItem;
   }
 
   void add(int val) {
-    final queueItem = Node(val, null);
-    if (tail == null) {
-      head = queueItem;
-      tail = queueItem;
+    final newNode = Node(val, null);
+    if (isEmpty()) {
+      head = newNode;
+      tail = newNode;
     } else {
-      tail!.next = queueItem;
-      tail = queueItem;
+      tail?.next = newNode;
+      tail = newNode;
     }
-
     size++;
   }
 }
 
 class MyStack {
-  Queue queue1 = Queue(null, null, 0);
-  Queue queue2 = Queue(null, null, 0);
-
-  MyStack();
+  Queue queue1 = Queue();
+  Queue queue2 = Queue();
 
   void push(int x) {
     queue1.add(x);
@@ -67,19 +60,14 @@ class MyStack {
       return -1;
     }
     while (queue1.size > 1) {
-      final remove = queue1.remove();
-      queue2.add(remove!.val);
+      final Node? removed = queue1.remove();
+      queue2.add(removed!.val);
     }
-
-    final lastItem = queue1.remove();
-
-    queue2.add(lastItem!.val);
-
-    var temp = queue1;
+    final Node? lastItem = queue1.remove();
+    Queue temp = queue1;
     queue1 = queue2;
     queue2 = temp;
-
-    return lastItem.val;
+    return lastItem!.val;
   }
 
   int top() {
@@ -87,21 +75,17 @@ class MyStack {
       return -1;
     }
     while (queue1.size > 1) {
-      final remove = queue1.remove();
-      queue2.add(remove!.val);
+      queue2.add(queue1.remove()!.val);
     }
-
-    final lastItem = queue1.peek();
+    final int lastVal = queue1.peek();
     queue2.add(queue1.remove()!.val);
-
-    var temp = queue1;
+    Queue temp = queue1;
     queue1 = queue2;
     queue2 = temp;
-
-    return lastItem;
+    return lastVal;
   }
 
   bool empty() {
-    return queue1.size == 0 && queue2.size == 0;
+    return queue1.isEmpty() && queue2.isEmpty();
   }
 }
