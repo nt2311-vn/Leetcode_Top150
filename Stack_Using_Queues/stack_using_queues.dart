@@ -24,7 +24,7 @@ class Queue {
   }
 
   Node? remove() {
-    if (isEmpty()) {
+    if (head == null) {
       return null;
     }
 
@@ -40,7 +40,7 @@ class Queue {
 
   void add(int val) {
     final queueItem = Node(val, null);
-    if (isEmpty()) {
+    if (tail == null) {
       head = queueItem;
       tail = queueItem;
     } else {
