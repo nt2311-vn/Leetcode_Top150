@@ -1,23 +1,26 @@
 package validpalindrome
 
-import (
-	"regexp"
-	"strings"
-)
+import "strings"
 
 func isPalindrome(s string) bool {
-	if len(s) <= 1 {
-		return true
+	s = strings.ToLower(s)
+
+	var cleaned strings.Builder
+
+	for _, c := range s {
+		if (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') {
+			cleaned.WriteRune(c)
+		}
 	}
 
-	re := regexp.MustCompile(`/^[a-z]+$/i`)
+	i, j := 0, cleaned.Len()-1
 
-	regexStr := re.FindAllString(strings.ToLower(s), -1)
-
-	for i := 0; i <= len(regexStr)/2; i++ {
-		if regexStr[i] != regexStr[len(regexStr)-1-i] {
+	for i < j {
+		if cleaned.String()[i] != cleaned.String()[j] {
 			return false
 		}
+		i++
+		j--
 	}
 
 	return true
