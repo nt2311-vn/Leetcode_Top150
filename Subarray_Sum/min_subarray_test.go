@@ -3,8 +3,8 @@ package subarraysum
 import "testing"
 
 func TestEdgeCase(t *testing.T) {
-	nums := []int{4, 4, 1}
-	k := 2
+	nums := []int{4}
+	k := 4
 	expected := 1
 
 	actual := minSubArrayLen(k, nums)
