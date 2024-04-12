@@ -5,6 +5,30 @@ func longestConsecutive(nums []int) int {
 		return len(nums)
 	}
 
-num_set:
-	Set[int] = set(nums)
+	hashMap := make(map[int]bool, len(nums))
+	for _, val := range nums {
+		hashMap[val] = true
+	}
+
+	countConsecutive := 0
+
+	for _, num := range nums {
+
+		if hashMap[num-1] {
+			continue
+		}
+
+		sequence, nextSequenxe := 1, num+1
+
+		for hashMap[nextSequenxe] {
+			sequence++
+			nextSequenxe++
+		}
+
+		if sequence > countConsecutive {
+			countConsecutive = sequence
+		}
+	}
+
+	return countConsecutive
 }
