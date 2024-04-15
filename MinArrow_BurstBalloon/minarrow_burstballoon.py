@@ -13,7 +13,7 @@ class Solution:
         index = 1
 
         while index < len(points):
-            if points[index][0] <= end:
+            if points[index][0] < end:
                 end = min(points[index][1], end)
             else:
                 count += 1
