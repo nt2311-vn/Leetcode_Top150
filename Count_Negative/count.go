@@ -1,6 +1,6 @@
 package countnegative
 
-unc countNegatives(grid [][]int) int {
+func countNegatives(grid [][]int) int {
 	result := 0
 
 	for _, arr := range grid {
