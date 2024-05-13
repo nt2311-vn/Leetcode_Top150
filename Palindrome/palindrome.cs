@@ -36,7 +36,7 @@ public class Solution
         {
             if (slow.val != prev.val)
             {
-                return fals;
+                return false;
             }
 
             slow = slow.next;
